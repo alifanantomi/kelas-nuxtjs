@@ -8,13 +8,14 @@ const productById = products.filter(item => item.id === Number(paramsId))
 </script>
 
 <template>
-  <div class="flex flex-row items-start gap-4">
+  <div class="flex flex-col md:flex-row items-start gap-4">
     <img 
       :src="productById[0].image" 
       alt="gambar produk"
     >
     <div class="flex flex-col gap-2">
       <h1 class="text-2xl">{{ productById[0].title }}</h1>
+      <p class="text-lg">Harga: {{ productById[0].price }}</p>
       <p class="text-lg">Stok Barang: {{ productById[0].stock }}</p>
       <p class="text-lg">{{ productById[0].description }}</p>
 
