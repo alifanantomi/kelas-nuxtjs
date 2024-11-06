@@ -1,3 +1,13 @@
+<script lang="ts" setup>
+const router = useRouter()
+
+const onClickCancel = () => {
+  console.log("Pindah ke halaman sebelumnya");
+
+  router.back()
+}
+</script>
+
 <template>
   <div class="flex flex-col gap-4">
     <h1 class="text-2xl font-semibold">
@@ -43,10 +53,10 @@
         </div>
 
         <div class="flex flex-row gap-2 items-center">
-          <button class="w-fit border-2 border-blue-500 text-blue-500 p-2 rounded-lg px-4">
+          <button type="button" class="w-fit border-2 border-blue-500 text-blue-500 p-2 rounded-lg px-4" @click="onClickCancel">
             Batal
           </button>
-          <button class="w-fit bg-blue-500 text-white p-2 rounded-lg px-4">
+          <button type="button" class="w-fit bg-blue-500 text-white p-2 rounded-lg px-4">
             Simpan Barang
           </button>
         </div>

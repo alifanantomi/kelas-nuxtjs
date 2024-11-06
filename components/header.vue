@@ -13,8 +13,8 @@
         </NuxtLink>
       </li>
       <li>
-        <NuxtLink to="/about">
-          About
+        <NuxtLink to="/dashboard">
+          Dashboard
         </NuxtLink>
       </li>
       <li>
