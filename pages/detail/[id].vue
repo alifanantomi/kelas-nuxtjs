@@ -10,6 +10,7 @@ const productById = products.filter(item => item.id === Number(paramsId))
 <template>
   <div class="flex flex-col md:flex-row items-start gap-4">
     <img 
+      class="rounded-lg"
       :src="productById[0].image" 
       alt="gambar produk"
     >
