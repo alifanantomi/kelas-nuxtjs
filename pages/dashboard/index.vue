@@ -1,6 +1,11 @@
 <script setup lang="ts">
-import { products } from '~/commons/data';
+const client = useSupabaseClient()
 
+const { data: products }: { data: any } = await useAsyncData('product', async () => {
+  const { data } = await client.from('product').select().order('created_at', { ascending: true })
+
+  return data
+})
 const router = useRouter()
 
 const onClickCreateProduct = () => {
@@ -49,7 +54,7 @@ const onClickCreateProduct = () => {
             {{ product.title }}
           </th>
           <td class="px-6 py-4 text-left">
-            {{ product.price }}
+            Rp{{ product.price }}
           </td>
           <td class="px-6 py-4 text-left">
             {{ product.stock }}

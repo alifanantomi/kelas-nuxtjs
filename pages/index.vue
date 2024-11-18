@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 const client = useSupabaseClient()
 
-const { data: products } = await useAsyncData('product', async () => {
-  const { data } = await client.from('product').select()
+const { data: products }: { data: any } = await useAsyncData('product', async () => {
+  const { data } = await client.from('product').select().order('created_at', { ascending: true })
 
   return data
 })
@@ -24,8 +24,8 @@ const { data: products } = await useAsyncData('product', async () => {
               :src="product.image" 
               alt="gambar produk"
             />
-            <h3 class="text-lg">{{ product.title }}</h3>
-            <h3 class="text-lg font-bold">{{ product.price }}</h3>
+            <h3 class="text-lg line-clamp-2">{{ product.title }}</h3>
+            <h3 class="text-lg font-bold">Rp{{ product.price }}</h3>
           </div>
         </NuxtLink>
       </li>
