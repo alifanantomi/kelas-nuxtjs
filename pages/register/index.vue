@@ -22,9 +22,7 @@ const onClickRegister = async () => {
       }
     })
 
-    console.log({data});
-
-    if (data) {
+    if (data.user) {
       navigateTo('/profile')
     }
 
