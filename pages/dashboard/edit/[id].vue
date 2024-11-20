@@ -64,34 +64,50 @@ const onClickCancel = () => {
 
     <form action="#">
       <div class="flex flex-col gap-2">
-        <input
-          class="p-2 border-2 border-slate-400 rounded-md" 
-          placeholder="Judul barang" 
-          type="text"
-          v-model="title"
-        >
+        <div class="w-full flex flex-col gap-1">
+          <label for="title">Judul barang</label>
+          <input
+            name="title"
+            class="p-2 border-2 border-slate-400 rounded-md" 
+            placeholder="Judul barang" 
+            type="text"
+            v-model="title"
+          >
+        </div>
         
-        <textarea
-          class="p-2 border-2 border-slate-400 rounded-md" 
-          placeholder="Deskripsi barang" 
-          type="text"
-          v-model="description"
-        ></textarea>
+        <div class="w-full flex flex-col gap-1">
+          <label for="desc">Deskripsi barang</label>
+          <textarea
+            name="desc"
+            class="p-2 border-2 border-slate-400 rounded-md" 
+            placeholder="Deskripsi barang" 
+            type="text"
+            v-model="description"
+          ></textarea>
+        </div>
 
         <div class="flex flex-row gap-2 items-center w-full">
-          <input
-            class="w-full p-2 border-2 border-slate-400 rounded-md" 
-            placeholder="Harga barang" 
-            type="number"
-            v-model="price"
-          >
+          <div class="w-full flex flex-col gap-1">
+            <label for="price">Harga barang (Rp)</label>
+            <input
+              name="price"
+              class="w-full p-2 border-2 border-slate-400 rounded-md" 
+              placeholder="Harga barang" 
+              type="number"
+              v-model="price"
+            >
+          </div>
           
-          <input
-            class="w-full p-2 border-2 border-slate-400 rounded-md" 
-            placeholder="Stok barang" 
-            type="number"
-            v-model="stock"
-          >
+          <div class="w-full flex flex-col gap-1">
+            <label for="stock">Stok Barang</label>
+            <input
+              name="stock"
+              class="w-full p-2 border-2 border-slate-400 rounded-md" 
+              placeholder="Stok barang" 
+              type="number"
+              v-model="stock"
+            >
+          </div>
         </div>
 
         <div class="flex flex-col gap-1">
