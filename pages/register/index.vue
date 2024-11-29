@@ -29,7 +29,6 @@ const onClickRegister = async () => {
     alert(error.error_description || error.message)
   }
 }
-
 </script>
 
 <template>

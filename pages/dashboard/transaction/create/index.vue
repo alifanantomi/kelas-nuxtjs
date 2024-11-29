@@ -2,14 +2,10 @@
 import { ref, computed, onMounted } from 'vue'
 
 const client = useSupabaseClient()
+const user = useSupabaseUser()
 
-const products = ref([
-  { id: 1, title: 'Laptop', price: 120000 },
-  { id: 2, title: 'Keyboard', price: 10000 },
-  { id: 3, title: 'Mouse', price: 5000 }
-])
+const products = ref([])
 
-// Form reactive variables
 const selectedProduct = ref(null)
 const quantity = ref(1)
 const transactionItems = ref([])
@@ -41,11 +37,50 @@ const removeTransactionItem = (index) => {
   transactionItems.value.splice(index, 1)
 }
 
-const saveTransaction = () => {
+const saveTransaction = async () => {
   if (transactionItems.value.length > 0) {
-    console.log('Saving transaction:', transactionItems.value)
-    alert('Transaction saved successfully!')
-    transactionItems.value = []
+
+    const { data: transactionData, error: transactionError } = await client
+      .from('transaction_user')
+      .insert({ 
+        user: user.value.id, 
+        total_price: transactionTotal.value 
+      })
+      .select('id')
+      .single()
+
+    if (transactionError){
+      alert(transactionError)
+      throw transactionError
+    }
+
+    let transactionPayloads = []
+
+    transactionItems.value.forEach((item) => {
+      
+      transactionPayloads.push({
+        transaction_user: transactionData.id, 
+        product: item.product.id,
+        qty_product: item.quantity,
+        total_price: item.product.price * item.quantity 
+      })
+      
+    });
+
+    console.log('Saving transaction:', transactionPayloads)
+    
+    const { data, error } = await client
+      .from('transaction')
+      .insert(transactionPayloads)
+      .select()
+
+      if (data) {
+        alert('Transaction saved successfully!', data)
+      } else {
+        alert('Failed saving transactions', error)
+      }
+              
+    transactionItems.value = [] // Clear items after saving
   } else {
     alert('No items in transaction')
   }
@@ -63,8 +98,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="product-transaction-container p-4">
-    <h2 class="text-xl font-bold mb-4">Product Transaction Tracker</h2>
+  <div class="p-4">
+    <h2 class="text-xl font-bold mb-4">Create Transaction</h2>
     
     <form @submit.prevent="addTransactionItem" class="mb-4">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
